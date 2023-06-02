@@ -11,7 +11,7 @@ using HoursCalculator.Services;
 
 namespace HoursCalculator.ViewModels
 {
-    public class MainWindowViewModel : INotifyDataErrorInfo, BindableBase
+    public class MainWindowViewModel : BindableBase, INotifyDataErrorInfo
     {
         #region Commands
         public DelegateCommand SubmitCommand { get; private set; }
