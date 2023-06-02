@@ -7,6 +7,7 @@ using System.ComponentModel;
 using System.Threading.Tasks;
 using System.Windows;
 using System;
+using HoursCalculator.Services;
 
 namespace HoursCalculator.ViewModels
 {
