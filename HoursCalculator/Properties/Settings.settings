@@ -5,7 +5,7 @@
     <Setting Name="EnableSync" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="AutoStartEnable" Type="System.String" Scope="User">
+    <Setting Name="AutoStartEnable" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
   </Settings>

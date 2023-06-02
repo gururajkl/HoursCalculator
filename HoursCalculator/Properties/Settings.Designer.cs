@@ -38,9 +38,9 @@ namespace HoursCalculator.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public string AutoStartEnable {
+        public bool AutoStartEnable {
             get {
-                return ((string)(this["AutoStartEnable"]));
+                return ((bool)(this["AutoStartEnable"]));
             }
             set {
                 this["AutoStartEnable"] = value;

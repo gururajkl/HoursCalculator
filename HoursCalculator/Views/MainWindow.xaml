@@ -1,10 +1,14 @@
 ﻿<Window x:Class="HoursCalculator.Views.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:prism="http://prismlibrary.com/"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:customcontrols="clr-namespace:HoursCalculator.CustomControls"
         prism:ViewModelLocator.AutoWireViewModel="True"
-        Title="{Binding Title}" Height="350" Width="525" >
+        WindowStartupLocation="CenterScreen"
+        Title="Hours Calculator"
+        ResizeMode="CanMinimize"
+        Height="400"
+        Width="560">
 
     <Window.Resources>
         <ControlTemplate x:Key="errorTemplate">

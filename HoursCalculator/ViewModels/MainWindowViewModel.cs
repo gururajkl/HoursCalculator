@@ -8,6 +8,10 @@ using System.Threading.Tasks;
 using System.Windows;
 using System;
 using HoursCalculator.Services;
+using HoursCalculator.ViewModels.Dialogs;
+using System.Collections;
+using System.Linq;
+using HoursCalculator.Events;
 
 namespace HoursCalculator.ViewModels
 {
