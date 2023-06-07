@@ -107,6 +107,13 @@ namespace HoursCalculator.ViewModels
             set { SetProperty(ref minutesResult, value); }
         }
 
+        private string syncText = "Sync is off";
+        public string SyncText
+        {
+            get { return syncText; }
+            set { SetProperty(ref syncText, value); }
+        }
+
         private bool sync;
         public bool Sync
         {
@@ -118,12 +125,14 @@ namespace HoursCalculator.ViewModels
                 {
                     timerService.Start();
                     StatusBar = "Syncing with time";
+                    SyncText = "Sync is on";
                     ChangeStatusSyncronously();
                 }
                 else
                 {
                     timerService.Stop();
                     StatusBar = "Not Syncing with time";
+                    SyncText = "Sync is off";
                     ChangeStatusSyncronously();
                 }
             }

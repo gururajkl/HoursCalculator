@@ -7,7 +7,7 @@
         WindowStartupLocation="CenterScreen"
         Title="Hours Calculator"
         ResizeMode="CanMinimize"
-        Height="400"
+        Height="410"
         Width="560">
 
     <Window.Resources>
@@ -98,195 +98,259 @@
 
         <Grid Margin="10"
               Grid.Row="1">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition />
-                <ColumnDefinition Width="20" />
-                <ColumnDefinition />
-            </Grid.ColumnDefinitions>
 
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
-            <Grid Grid.Row="0"
-                  HorizontalAlignment="Center"
-                  Grid.ColumnSpan="3">
-
+            <Grid Grid.Row="0">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="240" />
-                    <ColumnDefinition Width="30" />
-                    <ColumnDefinition Width="190" />
-                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="20" />
+                    <ColumnDefinition />
                 </Grid.ColumnDefinitions>
 
-                <TextBox Text="{Binding FromTime, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"
-                         Validation.ErrorTemplate="{StaticResource ResourceKey=errorTemplate}"
-                         Padding="4"
-                         PreviewTextInput="TextBox_PreviewTextInput"
-                         FontSize="20"
-                         Grid.Column="0"
-                         RenderTransformOrigin="0.502,0.332">
-                    <TextBox.Resources>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Row="0"
+                      HorizontalAlignment="Center"
+                      Grid.ColumnSpan="3">
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="240" />
+                        <ColumnDefinition Width="30" />
+                        <ColumnDefinition Width="190" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <TextBox Text="{Binding FromTime, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"
+                             Validation.ErrorTemplate="{StaticResource ResourceKey=errorTemplate}"
+                             Padding="4"
+                             PreviewTextInput="TextBox_PreviewTextInput"
+                             FontSize="20"
+                             Grid.Column="0"
+                             RenderTransformOrigin="0.502,0.332">
+                        <TextBox.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius"
+                                        Value="3" />
+                            </Style>
+                        </TextBox.Resources>
+                    </TextBox>
+
+                    <TextBlock Text="To"
+                               Grid.Column="1"
+                               FontSize="13"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center"
+                               RenderTransformOrigin="1.043,0.458" />
+
+                    <TextBox Text="{Binding ToTime, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"
+                             Validation.ErrorTemplate="{StaticResource ResourceKey=errorTemplate}"
+                             Padding="4"
+                             PreviewTextInput="TextBox_PreviewTextInput"
+                             FontSize="20"
+                             Grid.Column="2"
+                             RenderTransformOrigin="0.507,-0.088">
+                        <TextBox.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius"
+                                        Value="3" />
+                            </Style>
+                        </TextBox.Resources>
+                    </TextBox>
+
+                    <Button Grid.Column="3"
+                            Background="Transparent"
+                            BorderThickness="0"
+                            ToolTip="Now"
+                            Command="{Binding NowCommand}"
+                            Cursor="Hand">
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border Background="{TemplateBinding Background}">
+                                    <ContentPresenter />
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsMouseOver"
+                                             Value="True">
+                                        <Setter Property="Background"
+                                                Value="Transparent" />
+                                        <Setter Property="RenderTransformOrigin"
+                                                Value="0.5, 0.5" />
+                                    </Trigger>
+                                    <Trigger Property="IsMouseOver"
+                                             Value="True">
+                                        <Setter Property="Background"
+                                                Value="Transparent" />
+                                        <Setter Property="RenderTransform">
+                                            <Setter.Value>
+                                                <ScaleTransform ScaleX="1.1"
+                                                                ScaleY="1.1" />
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Trigger>
+                                    <Trigger Property="IsMouseOver"
+                                             Value="False">
+                                        <Setter Property="RenderTransform">
+                                            <Setter.Value>
+                                                <ScaleTransform ScaleX="1"
+                                                                ScaleY="1" />
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Button.Template>
+                        <customcontrols:AnalogClock HourX1="0"
+                                                    HourX2="-10"
+                                                    Margin="10 0 0 0"
+                                                    ClockHeight="40"
+                                                    ClockWidth="40"
+                                                    DotWidth="3"
+                                                    DotHeight="3"
+                                                    SecondX1="0"
+                                                    SecondX2="-15"
+                                                    MinuteX1="0"
+                                                    MinuteX2="-15">
+
+                        </customcontrols:AnalogClock>
+                    </Button>
+                </Grid>
+
+                <StackPanel Grid.Row="1"
+                            Grid.ColumnSpan="3"
+                            Margin="0 10 0 0"
+                            Orientation="Horizontal"
+                            HorizontalAlignment="Center">
+                    <Button Content="Submit"
+                            Padding="4"
+                            SnapsToDevicePixels="True"
+                            Width="150"
+                            Cursor="Hand"
+                            Command="{Binding SubmitCommand}"
+                            Margin="5">
+                        <Button.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius"
+                                        Value="3" />
+                            </Style>
+                        </Button.Resources>
+                    </Button>
+
+                    <Button Content="Clear"
+                            Command="{Binding ClearCommand}"
+                            Width="150"
+                            Margin="5"
+                            Cursor="Hand"
+                            SnapsToDevicePixels="True"
+                            Padding="4">
+                        <Button.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius"
+                                        Value="3" />
+                            </Style>
+                        </Button.Resources>
+                    </Button>
+                </StackPanel>
+
+                <!--Old CheckBox
+                <CheckBox Grid.Row="2"
+                          Content="Sync with time"
+                          Margin="2,5,5,5"
+                          Visibility="{Binding EnableSync}"
+                          IsChecked="{Binding Sync}">
+                    <CheckBox.Resources>
                         <Style TargetType="Border">
                             <Setter Property="CornerRadius"
-                                    Value="3" />
+                                    Value="2" />
                         </Style>
-                    </TextBox.Resources>
-                </TextBox>
+                    </CheckBox.Resources>
+                </CheckBox>-->
 
-                <TextBlock Text="To"
-                           Grid.Column="1"
-                           FontSize="13"
-                           HorizontalAlignment="Center"
-                           VerticalAlignment="Center"
-                           RenderTransformOrigin="1.043,0.458" />
+                <StackPanel Grid.Row="2" Orientation="Horizontal"
+                            VerticalAlignment="Center">
+                    <ToggleButton Width="30"
+                                  Height="15"
+                                  Cursor="Hand"
+                                  HorizontalAlignment="Left"
+                                  Visibility="{Binding EnableSync}"
+                                  IsChecked="{Binding Sync}"
+                                  Margin="0 10 0 0">
+                        <ToggleButton.Template>
+                            <ControlTemplate TargetType="ToggleButton">
+                                <Grid>
+                                    <Border CornerRadius="5"
+                                            Height="10"
+                                            Panel.ZIndex="1"
+                                            BorderBrush="DimGray"
+                                            BorderThickness="1.5"
+                                            Background="DarkGray">
+                                    </Border>
+                                    <Border Width="15"
+                                            Name="b2"
+                                            Height="15"
+                                            VerticalAlignment="Center"
+                                            CornerRadius="15"
+                                            HorizontalAlignment="Left"
+                                            Panel.ZIndex="2"
+                                            BorderBrush="DimGray"
+                                            BorderThickness="1.5"
+                                            Background="gray" />
+                                </Grid>
 
-                <TextBox Text="{Binding ToTime, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"
-                         Validation.ErrorTemplate="{StaticResource ResourceKey=errorTemplate}"
-                         Padding="4"
-                         PreviewTextInput="TextBox_PreviewTextInput"
-                         FontSize="20"
-                         Grid.Column="2"
-                         RenderTransformOrigin="0.507,-0.088">
-                    <TextBox.Resources>
-                        <Style TargetType="Border">
-                            <Setter Property="CornerRadius"
-                                    Value="3" />
-                        </Style>
-                    </TextBox.Resources>
-                </TextBox>
-
-                <Button Grid.Column="3"
-                        Background="Transparent"
-                        BorderThickness="0"
-                        ToolTip="Now"
-                        Command="{Binding NowCommand}"
-                        Cursor="Hand">
-                    <Button.Template>
-                        <ControlTemplate TargetType="Button">
-                            <Border Background="{TemplateBinding Background}">
-                                <ContentPresenter />
-                            </Border>
-                            <ControlTemplate.Triggers>
-                                <Trigger Property="IsMouseOver"
-                                         Value="True">
-                                    <Setter Property="Background"
-                                            Value="Transparent" />
-                                    <Setter Property="RenderTransformOrigin"
-                                            Value="0.5, 0.5" />
-                                </Trigger>
-                                <Trigger Property="IsMouseOver"
-                                         Value="True">
-                                    <Setter Property="Background"
-                                            Value="Transparent" />
-                                    <Setter Property="RenderTransform">
-                                        <Setter.Value>
-                                            <ScaleTransform ScaleX="1.1"
-                                                            ScaleY="1.1" />
-                                        </Setter.Value>
-                                    </Setter>
-                                </Trigger>
-                                <Trigger Property="IsMouseOver"
-                                         Value="False">
-                                    <Setter Property="RenderTransform">
-                                        <Setter.Value>
-                                            <ScaleTransform ScaleX="1"
-                                                            ScaleY="1" />
-                                        </Setter.Value>
-                                    </Setter>
-                                </Trigger>
-                            </ControlTemplate.Triggers>
-                        </ControlTemplate>
-                    </Button.Template>
-                    <customcontrols:AnalogClock HourX1="0"
-                                                HourX2="-10"
-                                                Margin="10 0 0 0"
-                                                ClockHeight="40"
-                                                ClockWidth="40"
-                                                DotWidth="3"
-                                                DotHeight="3"
-                                                SecondX1="0"
-                                                SecondX2="-15"
-                                                MinuteX1="0"
-                                                MinuteX2="-15">
-
-                    </customcontrols:AnalogClock>
-                </Button>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsChecked"
+                                             Value="true">
+                                        <Setter TargetName="b2"
+                                                Property="HorizontalAlignment"
+                                                Value="Right" />
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </ToggleButton.Template>
+                    </ToggleButton>
+                    <TextBlock Text="{Binding SyncText}"
+                               Visibility="{Binding EnableSync}"
+                               Margin="5 7 0 0"
+                               VerticalAlignment="Center"/>
+                </StackPanel>
             </Grid>
 
-            <StackPanel Grid.Row="1"
-                        Grid.ColumnSpan="3"
-                        Margin="0 10 0 0"
-                        Orientation="Horizontal"
-                        HorizontalAlignment="Center">
-                <Button Content="Submit"
-                        Padding="4"
-                        SnapsToDevicePixels="True"
-                        Width="150"
-                        Cursor="Hand"
-                        Command="{Binding SubmitCommand}"
-                        Margin="5">
-                    <Button.Resources>
-                        <Style TargetType="Border">
-                            <Setter Property="CornerRadius"
-                                    Value="3" />
-                        </Style>
-                    </Button.Resources>
-                </Button>
+            <GridSplitter Grid.Row="1"
+                          Height="5"
+                          Margin="0 4 0 4"
+                          HorizontalAlignment="Stretch"
+                          VerticalAlignment="Center"
+                          ShowsPreview="True" />
 
-                <Button Content="Clear"
-                        Command="{Binding ClearCommand}"
-                        Width="150"
-                        Margin="5"
-                        Cursor="Hand"
-                        SnapsToDevicePixels="True"
-                        Padding="4">
-                    <Button.Resources>
-                        <Style TargetType="Border">
-                            <Setter Property="CornerRadius"
-                                    Value="3" />
-                        </Style>
-                    </Button.Resources>
-                </Button>
-            </StackPanel>
+            <Grid Grid.Row="2">
+                <GroupBox Margin="0 5 0 0"
+                          Header="{Binding GroupBoxHeader}"
+                          BorderBrush="DimGray"
+                          BorderThickness="1.5">
 
-            <CheckBox Grid.Row="2"
-                      Content="Sync with time"
-                      Margin="2,5,5,5"
-                      Visibility="{Binding EnableSync}"
-                      IsChecked="{Binding Sync}">
-                <CheckBox.Resources>
-                    <Style TargetType="Border">
-                        <Setter Property="CornerRadius"
-                                Value="2" />
-                    </Style>
-                </CheckBox.Resources>
-            </CheckBox>
-
-            <GroupBox Grid.ColumnSpan="3"
-                      Grid.Row="3"
-                      Margin="0 5 0 0"
-                      Header="{Binding GroupBoxHeader}"
-                      BorderBrush="DimGray"
-                      BorderThickness="1.5">
-
-                <StackPanel Margin="10"
-                            VerticalAlignment="Center">
-                    <TextBlock Text="{Binding HoursResult, UpdateSourceTrigger=PropertyChanged}"
-                               FontSize="30"
-                               HorizontalAlignment="Center"
-                               Margin="0 0 0 5" />
-                    <TextBlock Text="{Binding MinutesResult}"
-                               FontSize="30"
-                               HorizontalAlignment="Center" />
-                    <TextBlock Text="{Binding HoursAndMinutes}"
-                               FontSize="30"
-                               HorizontalAlignment="Center" />
-                </StackPanel>
-            </GroupBox>
+                    <StackPanel Margin="10"
+                                VerticalAlignment="Center">
+                        <TextBlock Text="{Binding HoursResult, UpdateSourceTrigger=PropertyChanged}"
+                                   FontSize="30"
+                                   HorizontalAlignment="Center"
+                                   Margin="0 0 0 5" />
+                        <TextBlock Text="{Binding MinutesResult}"
+                                   FontSize="30"
+                                   HorizontalAlignment="Center" />
+                        <TextBlock Text="{Binding HoursAndMinutes}"
+                                   FontSize="30"
+                                   HorizontalAlignment="Center" />
+                    </StackPanel>
+                </GroupBox>
+            </Grid>
         </Grid>
 
         <StatusBar Grid.Row="2"
