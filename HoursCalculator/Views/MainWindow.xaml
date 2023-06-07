@@ -286,12 +286,13 @@
                         <ToggleButton.Template>
                             <ControlTemplate TargetType="ToggleButton">
                                 <Grid>
-                                    <Border CornerRadius="5"
+                                    <Border CornerRadius="4"
                                             Height="10"
+                                            x:Name="b1"
                                             Panel.ZIndex="1"
                                             BorderBrush="DimGray"
                                             BorderThickness="1.5"
-                                            Background="DarkGray">
+                                            Background="#C5C6D0">
                                     </Border>
                                     <Border Width="15"
                                             Name="b2"
@@ -302,7 +303,7 @@
                                             Panel.ZIndex="2"
                                             BorderBrush="DimGray"
                                             BorderThickness="1.5"
-                                            Background="gray" />
+                                            Background="White" />
                                 </Grid>
 
                                 <ControlTemplate.Triggers>
@@ -311,6 +312,9 @@
                                         <Setter TargetName="b2"
                                                 Property="HorizontalAlignment"
                                                 Value="Right" />
+                                        <Setter TargetName="b1"
+                                                Property="Background"
+                                                Value="Gray" />
                                     </Trigger>
                                 </ControlTemplate.Triggers>
                             </ControlTemplate>
@@ -319,6 +323,7 @@
                     <TextBlock Text="{Binding SyncText}"
                                Visibility="{Binding EnableSync}"
                                Margin="5 7 0 0"
+                               FontSize="11"
                                VerticalAlignment="Center"/>
                 </StackPanel>
             </Grid>

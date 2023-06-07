@@ -4,6 +4,7 @@
     <TargetFramework>net6.0-windows</TargetFramework>
     <UseWPF>true</UseWPF>
     <ApplicationIcon>iconForApp.ico</ApplicationIcon>
+    <AssemblyName>Hours Calculator</AssemblyName>
   </PropertyGroup>
   <ItemGroup>
     <None Remove="Resources\Icons\delete.ico" />
