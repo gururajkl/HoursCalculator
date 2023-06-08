@@ -8,6 +8,7 @@
   </PropertyGroup>
   <ItemGroup>
     <None Remove="Resources\Icons\delete.ico" />
+    <None Remove="Resources\Icons\exit.ico" />
     <None Remove="Resources\Icons\grip.ico" />
     <None Remove="Resources\Icons\message.ico" />
     <None Remove="Resources\Icons\save.ico" />
@@ -22,6 +23,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Icons\delete.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\exit.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Icons\grip.ico">

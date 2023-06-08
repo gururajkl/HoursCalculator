@@ -59,15 +59,18 @@
                           Command="{Binding TimeLogSaveCommand}">
                     <MenuItem.Icon>
                         <Image SnapsToDevicePixels="True"
-                               Width="15"
-                               Height="15"
                                Source="/Resources/Icons/save.ico" />
                     </MenuItem.Icon>
                 </MenuItem>
 
                 <MenuItem Header="Exit"
                           InputGestureText="Ctrl+E"
-                          Command="{Binding CloseAppCommand}" />
+                          Command="{Binding CloseAppCommand}">
+                    <MenuItem.Icon>
+                        <Image SnapsToDevicePixels="True"
+                               Source="/Resources/Icons/exit.ico" />
+                    </MenuItem.Icon>
+                </MenuItem>
             </MenuItem>
 
             <MenuItem Header="Tools">
@@ -75,8 +78,6 @@
                           Command="{Binding SettingClick}">
                     <MenuItem.Icon>
                         <Image SnapsToDevicePixels="True"
-                               Width="15"
-                               Height="15"
                                Source="/Resources/Icons/settingsIcon.ico" />
                     </MenuItem.Icon>
                 </MenuItem>
@@ -88,8 +89,6 @@
                           Command="{Binding TimeLogCommand}">
                     <MenuItem.Icon>
                         <Image SnapsToDevicePixels="True"
-                               Width="15"
-                               Height="15"
                                Source="/Resources/Icons/spent.ico" />
                     </MenuItem.Icon>
                 </MenuItem>
@@ -274,7 +273,8 @@
                     </CheckBox.Resources>
                 </CheckBox>-->
 
-                <StackPanel Grid.Row="2" Orientation="Horizontal"
+                <StackPanel Grid.Row="2"
+                            Orientation="Horizontal"
                             VerticalAlignment="Center">
                     <ToggleButton Width="30"
                                   Height="15"
@@ -324,7 +324,7 @@
                                Visibility="{Binding EnableSync}"
                                Margin="5 7 0 0"
                                FontSize="11"
-                               VerticalAlignment="Center"/>
+                               VerticalAlignment="Center" />
                 </StackPanel>
             </Grid>
 
