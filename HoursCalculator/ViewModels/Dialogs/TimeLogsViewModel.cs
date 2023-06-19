@@ -5,13 +5,16 @@ using Prism.Mvvm;
 using Prism.Services.Dialogs;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 
 namespace HoursCalculator.ViewModels.Dialogs
 {
     public class TimeLogsViewModel : BindableBase, IDialogAware
     {
         public string Title => "History of Time Logs";
+        string location = "";
         private readonly string fileName = "TimeLogs.xml";
         public event Action<IDialogResult> RequestClose;
         public FileService<TimeLog> FileService;
@@ -29,13 +32,16 @@ namespace HoursCalculator.ViewModels.Dialogs
 
             DeleteRow = new DelegateCommand<object>(DeleteItem)
                 .ObservesProperty(() => TimeLogsCollection);
+
+            string binPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            location = Path.Combine(binPath, "TimeLogs.xml");
         }
 
         private void DeleteItem(object selectedItem)
         {
             var item = selectedItem;
             TimeLogsCollection.Remove(item as TimeLog);
-            RaisePropertyChanged("TimeLogsCollection");
+            RaisePropertyChanged(nameof(TimeLogsCollection));
             FileService.SetData(fileName, TimeLogsCollection);
         }
 

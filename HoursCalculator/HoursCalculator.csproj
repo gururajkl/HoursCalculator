@@ -19,6 +19,7 @@
     <Content Include="iconForApp.ico" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="EPPlus" Version="6.2.4" />
     <PackageReference Include="Prism.Unity" Version="8.1.97" />
   </ItemGroup>
   <ItemGroup>
