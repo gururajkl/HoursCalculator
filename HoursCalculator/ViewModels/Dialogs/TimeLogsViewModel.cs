@@ -41,8 +41,24 @@ namespace HoursCalculator.ViewModels.Dialogs
         {
             var item = selectedItem;
             TimeLogsCollection.Remove(item as TimeLog);
+            TimeLogsCollection = new List<TimeLog>(TimeLogsCollection);
             RaisePropertyChanged(nameof(TimeLogsCollection));
             FileService.SetData(fileName, TimeLogsCollection);
+            EnableDelete = TimeLogsCollection.Count > 0 ? true : false;
+        }
+
+        private bool enableDelete;
+        public bool EnableDelete
+        {
+            get
+            {
+                return enableDelete = TimeLogsCollection.Count > 0 ? true : false;
+            }
+            set
+            {
+                value = TimeLogsCollection.Count > 0 ? true : false;
+                SetProperty(ref enableDelete, value);
+            }
         }
 
         public bool CanCloseDialog()

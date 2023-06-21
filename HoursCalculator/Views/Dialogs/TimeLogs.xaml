@@ -45,7 +45,7 @@
             <DataGrid.ContextMenu>
                 <ContextMenu>
                     <MenuItem Header="Delete"
-                              IsEnabled="False"
+                              IsEnabled="{Binding EnableDelete}"
                               Command="{Binding DeleteRow}"
                               CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor,
                         AncestorType={x:Type ContextMenu}}, Path=PlacementTarget.SelectedItem}">

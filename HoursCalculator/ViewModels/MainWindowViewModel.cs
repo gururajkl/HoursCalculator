@@ -34,6 +34,7 @@ namespace HoursCalculator.ViewModels
         private readonly string formatForTime = "h:mm tt";
         private readonly TimeLogsViewModel timeLogsViewModel = new();
         private readonly IEventAggregator eventAggregator;
+        private int errorCount = 0;
         #endregion
 
         public MainWindowViewModel(ITimerService timerService, IDialogService dialogService, IEventAggregator eventAggregator)
@@ -192,7 +193,8 @@ namespace HoursCalculator.ViewModels
                 }
                 catch (Exception)
                 {
-                    AddErrors(nameof(FromTime), "Format be hh:mm AM/PM");
+                    AddErrors(nameof(FromTime), "Format: hh:mm AM/PM");
+                    errorCount++;
                 }
 
                 try
@@ -202,27 +204,38 @@ namespace HoursCalculator.ViewModels
                 }
                 catch (Exception)
                 {
-                    AddErrors(nameof(ToTime), "Format be hh:mm AM/PM");
+                    AddErrors(nameof(ToTime), "Format: hh:mm AM/PM");
+                    errorCount++;
+                }
+
+                if (errorCount <= 0)
+                {
+                    TimeSpan timeDiff = toTime24 - fromTime24;
+                    double totalHours = timeDiff.TotalHours;
+                    double totalMinutes = timeDiff.TotalMinutes;
+
+                    double hours = timeDiff.Hours;
+                    double minutes = timeDiff.Minutes;
+                    string hoursAndMinutes = $"{hours} hour {minutes} minute";
+
+                    HoursResult = $"{totalHours.ToString("0.00")} Hours";
+                    MinutesResult = $"{totalMinutes} Minutes";
+                    HoursAndMinutes = hoursAndMinutes;
+
+                    GroupBoxHeader = $"Time between {FromTime} and {ToTime} is";
+                }
+                else
+                {
+                    HoursResult = "Invalid Inputs...";
+                    MinutesResult = "";
+                    HoursAndMinutes = "";
+                    errorCount = 0;
                 }
             }
             catch (Exception)
             {
                 throw new ArgumentException("Invalid value");
             }
-
-            TimeSpan timeDiff = toTime24 - fromTime24;
-            double totalHours = timeDiff.TotalHours;
-            double totalMinutes = timeDiff.TotalMinutes;
-
-            double hours = timeDiff.Hours;
-            double minutes = timeDiff.Minutes;
-            string hoursAndMinutes = $"{hours} hour {minutes} minute";
-
-            HoursResult = $"{totalHours.ToString("0.00")} Hours";
-            MinutesResult = $"{totalMinutes} Minutes";
-            HoursAndMinutes = hoursAndMinutes;
-
-            GroupBoxHeader = $"Time between {FromTime} and {ToTime} is";
         }
 
         public void SaveTimeLog()
