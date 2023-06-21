@@ -24,6 +24,7 @@ namespace HoursCalculator
             containerRegistry.Register<ITimerService, TimerService>();
             containerRegistry.RegisterDialog<Options, OptionsViewModel>();
             containerRegistry.RegisterDialog<TimeLogs, TimeLogsViewModel>();
+            containerRegistry.RegisterDialog<CommentsWindow, CommentsWindowViewModel>();
         }
 
         /* AutoStart Enable logic

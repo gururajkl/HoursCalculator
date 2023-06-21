@@ -8,12 +8,10 @@
 
     <prism:Dialog.WindowStyle>
         <Style TargetType="Window">
-            <Setter Property="ResizeMode"
-                    Value="CanMinimize" />
             <Setter Property="Width"
-                    Value="400" />
+                    Value="500" />
             <Setter Property="Height"
-                    Value="350" />
+                    Value="430" />
         </Style>
     </prism:Dialog.WindowStyle>
 
@@ -24,12 +22,32 @@
         </Grid.RowDefinitions>
 
         <DataGrid Grid.Row="0"
-                  ColumnWidth="*"
+                  Name="dataGrid"
                   ItemsSource="{Binding TimeLogsCollection}"
                   AutoGenerateColumns="False"
                   IsReadOnly="True"
                   SelectionMode="Single"
                   SelectionUnit="FullRow">
+
+            <DataGrid.CellStyle>
+                <Style TargetType="DataGridCell">
+                    <Setter Property="Padding"
+                            Value="2" />
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type DataGridCell}">
+                                <Border Padding="{TemplateBinding Padding}"
+                                        BorderBrush="{TemplateBinding BorderBrush}"
+                                        BorderThickness="{TemplateBinding BorderThickness}"
+                                        Background="{TemplateBinding Background}"
+                                        SnapsToDevicePixels="True">
+                                    <ContentPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </DataGrid.CellStyle>
 
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Date"
@@ -40,6 +58,9 @@
                                     Binding="{Binding To}" />
                 <DataGridTextColumn Header="Spent"
                                     Binding="{Binding TotalSpent}" />
+                <DataGridTextColumn Header="Comments"
+                                    Width="*"
+                                    Binding="{Binding Comments}" />
             </DataGrid.Columns>
 
             <DataGrid.ContextMenu>
@@ -54,6 +75,19 @@
                                    Width="Auto"
                                    Height="Auto"
                                    Source="/Resources/Icons/delete.ico" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+
+                    <MenuItem Header="Edit Comment"
+                              IsEnabled="{Binding EnableDelete}"
+                              CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor,
+                        AncestorType={x:Type ContextMenu}}, Path=PlacementTarget.SelectedItem}"
+                              Command="{Binding AddComment}">
+                        <MenuItem.Icon>
+                            <Image SnapsToDevicePixels="True"
+                                   Width="Auto"
+                                   Height="Auto"
+                                   Source="/Resources/Icons/pen.ico" />
                         </MenuItem.Icon>
                     </MenuItem>
                 </ContextMenu>

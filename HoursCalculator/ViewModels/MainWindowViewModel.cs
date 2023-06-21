@@ -12,6 +12,7 @@ using HoursCalculator.ViewModels.Dialogs;
 using System.Collections;
 using System.Linq;
 using HoursCalculator.Events;
+using HoursCalculator.Model;
 
 namespace HoursCalculator.ViewModels
 {
@@ -31,14 +32,18 @@ namespace HoursCalculator.ViewModels
         private readonly ITimerService timerService;
         private readonly IDialogService dialogService;
         private readonly Dictionary<string, List<string>> propertyErrors = new();
+        private readonly FileService<TimeLog> fileService;
         private readonly string formatForTime = "h:mm tt";
-        private readonly TimeLogsViewModel timeLogsViewModel = new();
+        private readonly TimeLogsViewModel timeLogsViewModel;
         private readonly IEventAggregator eventAggregator;
         private int errorCount = 0;
+        string comments = "";
         #endregion
 
         public MainWindowViewModel(ITimerService timerService, IDialogService dialogService, IEventAggregator eventAggregator)
         {
+            timeLogsViewModel = new TimeLogsViewModel(dialogService);
+
             SubmitCommand = new DelegateCommand(CalculateHours, CanExecuteSubmitCommand)
                 .ObservesProperty(() => HoursResult)
                 .ObservesProperty(() => FromTime)
@@ -60,6 +65,7 @@ namespace HoursCalculator.ViewModels
             this.dialogService = dialogService;
             timerService.Tick += TimerService_Tick;
             this.eventAggregator = eventAggregator;
+            fileService = new FileService<TimeLog>();
         }
 
         #region Properties
@@ -240,11 +246,17 @@ namespace HoursCalculator.ViewModels
 
         public void SaveTimeLog()
         {
+            if (fileService.GetData("TimeLogs.xml").Count > 0)
+            {
+                comments = fileService.GetData("TimeLogs.xml").Find(t => t.Date == DateTime.Now.ToString("d") || t.Date == "Today").Comments;
+            }
+
             DialogParameters timeLogsParamas = new()
             {
                 { "from", FromTime },
                 { "to", ToTime },
-                { "spent", HoursResult }
+                { "spent", HoursResult },
+                { "comment", comments }
             };
             timeLogsViewModel.OnDialogOpened(timeLogsParamas);
             StatusBar = "Log Saved!";
@@ -273,12 +285,21 @@ namespace HoursCalculator.ViewModels
 
         public void ShowTimeLogs()
         {
+            comments = "";
+
+            if (fileService.GetData("TimeLogs.xml").Count > 0)
+            {
+                comments = fileService.GetData("TimeLogs.xml").Find(t => t.Date == DateTime.Now.ToString("d") || t.Date == "Today").Comments;
+            }
+
             DialogParameters timeLogsParamas = new()
             {
                 { "from", FromTime },
                 { "to", ToTime },
-                { "spent", HoursResult }
+                { "spent", HoursResult },
+                { "comment", comments }
             };
+
             dialogService.ShowDialog("TimeLogs", timeLogsParamas, callBack =>
             {
                 // TODO implement the call back

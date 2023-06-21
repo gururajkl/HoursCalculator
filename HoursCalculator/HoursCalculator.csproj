@@ -11,6 +11,7 @@
     <None Remove="Resources\Icons\exit.ico" />
     <None Remove="Resources\Icons\grip.ico" />
     <None Remove="Resources\Icons\message.ico" />
+    <None Remove="Resources\Icons\pen.ico" />
     <None Remove="Resources\Icons\save.ico" />
     <None Remove="Resources\Icons\settingsIcon.ico" />
     <None Remove="Resources\Icons\spent.ico" />
@@ -19,6 +20,9 @@
     <Content Include="iconForApp.ico" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Resources\Icons\pen.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Resources\Icons\save.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>

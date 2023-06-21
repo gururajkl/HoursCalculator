@@ -18,20 +18,25 @@ namespace HoursCalculator.ViewModels.Dialogs
         private readonly string fileName = "TimeLogs.xml";
         public event Action<IDialogResult> RequestClose;
         public FileService<TimeLog> FileService;
+        private IDialogService dialogService;
 
         public List<TimeLog> TimeLogsCollection { get; set; }
 
         public DelegateCommand<object> DeleteRow { get; set; }
+        public DelegateCommand<object> AddComment { get; set; }
 
-        public TimeLogsViewModel()
+        public TimeLogsViewModel(IDialogService dialogService)
         {
             TimeLogsCollection = new List<TimeLog>();
             FileService = new FileService<TimeLog>();
+            this.dialogService = dialogService;
 
             TimeLogsCollection = FileService.GetData(fileName);
 
             DeleteRow = new DelegateCommand<object>(DeleteItem)
                 .ObservesProperty(() => TimeLogsCollection);
+
+            AddComment = new DelegateCommand<object>(AddComments);
 
             string binPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
             location = Path.Combine(binPath, "TimeLogs.xml");
@@ -45,6 +50,26 @@ namespace HoursCalculator.ViewModels.Dialogs
             RaisePropertyChanged(nameof(TimeLogsCollection));
             FileService.SetData(fileName, TimeLogsCollection);
             EnableDelete = TimeLogsCollection.Count > 0 ? true : false;
+        }
+
+        private void AddComments(object selectedItem)
+        {
+            var preEnteredComment = ((TimeLog)selectedItem).Comments;
+            var dialogParameterForCommentsWindow = new DialogParameters();
+            dialogParameterForCommentsWindow.Add("commentText", preEnteredComment.ToString());
+
+            dialogService.ShowDialog("CommentsWindow", dialogParameterForCommentsWindow, r =>
+            {
+                if (r.Result == ButtonResult.OK)
+                {
+                    TimeLog selectedTimeLog = TimeLogsCollection.Find(t => t.Date == ((TimeLog)selectedItem).Date);
+                    selectedTimeLog.Comments = r.Parameters.GetValue<string>("comment");
+                    TimeLogsCollection = new List<TimeLog>(TimeLogsCollection);
+                    RaisePropertyChanged(nameof(TimeLogsCollection));
+                    FileService.SetData(fileName, TimeLogsCollection);
+                    EnableDelete = TimeLogsCollection.Count > 0 ? true : false;
+                }
+            });
         }
 
         private bool enableDelete;
@@ -74,15 +99,30 @@ namespace HoursCalculator.ViewModels.Dialogs
             var from = parameters.GetValue<string>("from");
             var to = parameters.GetValue<string>("to");
             var spent = parameters.GetValue<string>("spent");
+            var comment = parameters.GetValue<string>("comment");
 
             if (TimeLogsCollection.Where(r => r.Date == DateTime.Now.ToString("d") || r.Date == "Today").Any())
             {
                 TimeLogsCollection.RemoveAll(r => r.Date == DateTime.Now.ToString("d") || r.Date == "Today");
-                TimeLogsCollection.Add(new TimeLog() { Date = "Today", From = from, To = to, TotalSpent = spent });
+                TimeLogsCollection.Add(new TimeLog()
+                {
+                    Date = "Today",
+                    From = from,
+                    To = to,
+                    TotalSpent = spent,
+                    Comments = comment
+                });
             }
             else
             {
-                TimeLogsCollection.Add(new TimeLog() { Date = DateTime.Now.ToString("d"), From = from, To = to, TotalSpent = spent });
+                TimeLogsCollection.Add(new TimeLog()
+                {
+                    Date = DateTime.Now.ToString("d"),
+                    From = from,
+                    To = to,
+                    TotalSpent = spent,
+                    Comments = comment
+                });
             }
 
             FileService.SetData(fileName, TimeLogsCollection);

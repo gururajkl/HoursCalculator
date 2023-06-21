@@ -118,7 +118,8 @@
                       Grid.ColumnSpan="3">
 
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="240" />
+                        <ColumnDefinition Width="72.828" />
+                        <ColumnDefinition Width="167.172" />
                         <ColumnDefinition Width="30" />
                         <ColumnDefinition Width="190" />
                         <ColumnDefinition Width="Auto" />
@@ -130,7 +131,8 @@
                              PreviewTextInput="TextBox_PreviewTextInput"
                              FontSize="20"
                              Grid.Column="0"
-                             RenderTransformOrigin="0.502,0.332">
+                             RenderTransformOrigin="0.502,0.332"
+                             Grid.ColumnSpan="2">
                         <TextBox.Resources>
                             <Style TargetType="Border">
                                 <Setter Property="CornerRadius"
@@ -140,7 +142,7 @@
                     </TextBox>
 
                     <TextBlock Text="To"
-                               Grid.Column="1"
+                               Grid.Column="2"
                                FontSize="13"
                                HorizontalAlignment="Center"
                                VerticalAlignment="Center"
@@ -151,7 +153,7 @@
                              Padding="4"
                              PreviewTextInput="TextBox_PreviewTextInput"
                              FontSize="20"
-                             Grid.Column="2"
+                             Grid.Column="3"
                              RenderTransformOrigin="0.507,-0.088">
                         <TextBox.Resources>
                             <Style TargetType="Border">
@@ -161,7 +163,7 @@
                         </TextBox.Resources>
                     </TextBox>
 
-                    <Button Grid.Column="3"
+                    <Button Grid.Column="4"
                             Background="Transparent"
                             BorderThickness="0"
                             ToolTip="Now"
@@ -324,7 +326,8 @@
                 </StackPanel>
             </Grid>
 
-            <Grid Grid.Row="2" Margin="0 5 0 0">
+            <Grid Grid.Row="2"
+                  Margin="0 5 0 0">
                 <GroupBox Margin="0 5 0 0"
                           Header="{Binding GroupBoxHeader}"
                           BorderBrush="DimGray"
