@@ -7,7 +7,7 @@
         WindowStartupLocation="CenterScreen"
         Title="Hours Calculator"
         ResizeMode="CanMinimize"
-        Height="410"
+        Height="430"
         Width="560">
 
     <Window.Resources>
@@ -356,6 +356,98 @@
                    VerticalAlignment="Center">
             <StatusBarItem>
                 <TextBlock Text="{Binding StatusBar, StringFormat={}💬 {0}}" />
+            </StatusBarItem>
+            <StatusBarItem HorizontalAlignment="Right"
+                           Margin="0 0 5 0">
+                <Button Background="Transparent"
+                        BorderBrush="Transparent"
+                        Command="{Binding TimeLogCommand}"
+                        Height="20">
+                    <Button.Content>
+                        <Border BorderBrush="Black"
+                                Width="15"
+                                CornerRadius="3"
+                                Height="18"
+                                Panel.ZIndex="0"
+                                ToolTip="History"
+                                SnapsToDevicePixels="True"
+                                BorderThickness="1.4">
+                            <Canvas>
+                                <StackPanel Orientation="Vertical"
+                                            Panel.ZIndex="0"
+                                            VerticalAlignment="Top">
+                                    <Border BorderBrush="Black"
+                                            SnapsToDevicePixels="True"
+                                            BorderThickness="3.3"
+                                            Height="1.2"
+                                            Margin="2.5 3 2 0" />
+                                    <Border BorderBrush="Black"
+                                            SnapsToDevicePixels="True"
+                                            BorderThickness="3.3"
+                                            Height="1.2"
+                                            Margin="2.5 2 2 0" />
+                                    <Border BorderBrush="Black"
+                                            BorderThickness="3.3"
+                                            SnapsToDevicePixels="True"
+                                            Height="1.2"
+                                            Margin="2.5 2 2 0" />
+                                </StackPanel>
+                                <Border HorizontalAlignment="Right"
+                                        BorderBrush="Black"
+                                        CornerRadius="8"
+                                        Background="Black"
+                                        Height="13"
+                                        Panel.ZIndex="1"
+                                        Visibility="{Binding ShowDays}"
+                                        Width="13"
+                                        Canvas.Left="6"
+                                        Canvas.Top="8">
+                                    <TextBlock Text="{Binding DayCount}"
+                                               VerticalAlignment="Center"
+                                               HorizontalAlignment="Center"
+                                               Foreground="White"
+                                               FontSize="7" />
+                                </Border>
+                            </Canvas>
+                        </Border>
+                    </Button.Content>
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border Background="{TemplateBinding Background}">
+                                <ContentPresenter />
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver"
+                                         Value="True">
+                                    <Setter Property="Background"
+                                            Value="Transparent" />
+                                    <Setter Property="RenderTransformOrigin"
+                                            Value="0.5, 0.5" />
+                                </Trigger>
+                                <Trigger Property="IsMouseOver"
+                                         Value="True">
+                                    <Setter Property="Background"
+                                            Value="DarkGray" />
+                                    <Setter Property="RenderTransform">
+                                        <Setter.Value>
+                                            <ScaleTransform ScaleX="1.1"
+                                                            ScaleY="1.1" />
+                                        </Setter.Value>
+                                    </Setter>
+                                </Trigger>
+                                <Trigger Property="IsMouseOver"
+                                         Value="False">
+                                    <Setter Property="RenderTransform">
+                                        <Setter.Value>
+                                            <ScaleTransform ScaleX="1"
+                                                            ScaleY="1" />
+                                        </Setter.Value>
+                                    </Setter>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
             </StatusBarItem>
         </StatusBar>
     </Grid>

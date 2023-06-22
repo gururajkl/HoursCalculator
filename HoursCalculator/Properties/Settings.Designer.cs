@@ -46,5 +46,17 @@ namespace HoursCalculator.Properties {
                 this["AutoStartEnable"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool ShowDays {
+            get {
+                return ((bool)(this["ShowDays"]));
+            }
+            set {
+                this["ShowDays"] = value;
+            }
+        }
     }
 }

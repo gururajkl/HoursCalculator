@@ -10,7 +10,7 @@ namespace HoursCalculator.Services
 
         public TimerService()
         {
-            dispatcherTimer = new DispatcherTimer();
+            dispatcherTimer = new();
             dispatcherTimer.Interval = TimeSpan.FromSeconds(3);
             dispatcherTimer.Tick += DispatcherTimer_Tick;
         }

@@ -25,6 +25,13 @@ namespace HoursCalculator.ViewModels.Dialogs
             set { SetProperty(ref enableCheckBox, value); }
         }
 
+        private bool showDaysCount = Properties.Settings.Default.ShowDays;
+        public bool ShowDaysCount
+        {
+            get { return showDaysCount; }
+            set { SetProperty(ref showDaysCount, value); }
+        }
+
         private bool autoStart = false;
         public bool AutoStart
         {
@@ -43,7 +50,8 @@ namespace HoursCalculator.ViewModels.Dialogs
             RaiseRequestClose(new DialogResult(buttonResult, new DialogParameters()
             {
                 { "show", EnableCheckBox },
-                { "autoStart", AutoStart }
+                { "autoStart", AutoStart },
+                { "showDays", ShowDaysCount }
             }));
         }
 

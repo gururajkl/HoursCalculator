@@ -66,6 +66,7 @@ namespace HoursCalculator.ViewModels
             timerService.Tick += TimerService_Tick;
             this.eventAggregator = eventAggregator;
             fileService = new FileService<TimeLog>();
+            DisplayLineCount();
         }
 
         #region Properties
@@ -158,6 +159,19 @@ namespace HoursCalculator.ViewModels
             }
         }
 
+        private Visibility showDays = Properties.Settings.Default.ShowDays ? Visibility.Visible : Visibility.Collapsed;
+        public Visibility ShowDays
+        {
+            get { return showDays; }
+            set
+            {
+                if (SetProperty(ref showDays, value))
+                {
+                    RaisePropertyChanged(nameof(ShowDays));
+                }
+            }
+        }
+
         private string hoursAndMinutes;
         public string HoursAndMinutes
         {
@@ -177,6 +191,13 @@ namespace HoursCalculator.ViewModels
         {
             get { return statusBar; }
             set { SetProperty(ref statusBar, value); }
+        }
+
+        private string dayCount;
+        public string DayCount
+        {
+            get { return dayCount; }
+            set { SetProperty(ref dayCount, value); }
         }
         #endregion
 
@@ -277,7 +298,9 @@ namespace HoursCalculator.ViewModels
                 if (r.Result == ButtonResult.OK)
                 {
                     EnableSync = r.Parameters.GetValue<bool>("show") ? Visibility.Visible : Visibility.Collapsed;
+                    ShowDays = r.Parameters.GetValue<bool>("showDays") ? Visibility.Visible : Visibility.Collapsed;
                     Properties.Settings.Default.EnableSync = r.Parameters.GetValue<bool>("show");
+                    Properties.Settings.Default.ShowDays = r.Parameters.GetValue<bool>("showDays");
                     Properties.Settings.Default.AutoStartEnable = false;
                     Properties.Settings.Default.Save();
                 }
@@ -306,6 +329,12 @@ namespace HoursCalculator.ViewModels
             {
                 // TODO implement the call back
             });
+        }
+
+        private void DisplayLineCount()
+        {
+            DayCount = fileService.GetData("TimeLogs.xml").Count.ToString();
+            if (Convert.ToInt32(DayCount) >= 40) DayCount = "9+";
         }
 
         private void TimerService_Tick(object sender, EventArgs e)
