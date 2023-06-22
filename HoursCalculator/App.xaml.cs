@@ -25,6 +25,7 @@ namespace HoursCalculator
             containerRegistry.RegisterDialog<Options, OptionsViewModel>();
             containerRegistry.RegisterDialog<TimeLogs, TimeLogsViewModel>();
             containerRegistry.RegisterDialog<CommentsWindow, CommentsWindowViewModel>();
+            containerRegistry.RegisterDialog<OverView, OverViewModel>();
         }
 
         /* AutoStart Enable logic

@@ -24,10 +24,17 @@
         <DataGrid Grid.Row="0"
                   Name="dataGrid"
                   ItemsSource="{Binding TimeLogsCollection}"
+                  SelectedItem="{Binding SelectedItem}"
                   AutoGenerateColumns="False"
                   IsReadOnly="True"
                   SelectionMode="Single"
                   SelectionUnit="FullRow">
+
+            <DataGrid.InputBindings>
+                <MouseBinding Gesture="LeftDoubleClick"
+                              Command="{Binding LeftDoubleClick}"
+                              CommandParameter="{Binding SelectedItem}" />
+            </DataGrid.InputBindings>
 
             <DataGrid.CellStyle>
                 <Style TargetType="DataGridCell">
@@ -51,12 +58,16 @@
 
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Date"
+                                    Width="*"
                                     Binding="{Binding Date}" />
                 <DataGridTextColumn Header="From"
+                                    Width="*"
                                     Binding="{Binding From}" />
                 <DataGridTextColumn Header="To"
+                                    Width="*"
                                     Binding="{Binding To}" />
                 <DataGridTextColumn Header="Spent"
+                                    Width="*"
                                     Binding="{Binding TotalSpent}" />
                 <DataGridTextColumn Header="Comments"
                                     Width="*"

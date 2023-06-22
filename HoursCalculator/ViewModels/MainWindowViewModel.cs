@@ -1,18 +1,18 @@
-﻿using Prism.Commands;
+﻿using HoursCalculator.Events;
+using HoursCalculator.Model;
+using HoursCalculator.Services;
+using HoursCalculator.ViewModels.Dialogs;
+using Prism.Commands;
 using Prism.Events;
 using Prism.Mvvm;
 using Prism.Services.Dialogs;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
-using System;
-using HoursCalculator.Services;
-using HoursCalculator.ViewModels.Dialogs;
-using System.Collections;
-using System.Linq;
-using HoursCalculator.Events;
-using HoursCalculator.Model;
 
 namespace HoursCalculator.ViewModels
 {
@@ -248,7 +248,8 @@ namespace HoursCalculator.ViewModels
         {
             if (fileService.GetData("TimeLogs.xml").Count > 0)
             {
-                comments = fileService.GetData("TimeLogs.xml").Find(t => t.Date == DateTime.Now.ToString("d") || t.Date == "Today").Comments;
+                if (fileService.GetData("TimeLogs.xml").Find(t => t.Date == DateTime.Now.ToString("d") || t.Date == "Today") != null)
+                    comments = (fileService.GetData("TimeLogs.xml").Find(t => t.Date == DateTime.Now.ToString("d") || t.Date == "Today").Comments);
             }
 
             DialogParameters timeLogsParamas = new()
@@ -289,7 +290,8 @@ namespace HoursCalculator.ViewModels
 
             if (fileService.GetData("TimeLogs.xml").Count > 0)
             {
-                comments = fileService.GetData("TimeLogs.xml").Find(t => t.Date == DateTime.Now.ToString("d") || t.Date == "Today").Comments;
+                if (fileService.GetData("TimeLogs.xml").Find(t => t.Date == DateTime.Now.ToString("d") || t.Date == "Today") != null)
+                    comments = (fileService.GetData("TimeLogs.xml").Find(t => t.Date == DateTime.Now.ToString("d") || t.Date == "Today").Comments);
             }
 
             DialogParameters timeLogsParamas = new()

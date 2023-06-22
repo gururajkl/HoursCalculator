@@ -12,7 +12,8 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <StackPanel Grid.Row="0">
+        <StackPanel Grid.Row="0"
+                    Width="Auto">
             <TextBox TextWrapping="Wrap"
                      Text="{Binding CommentText}"
                      Padding="3"

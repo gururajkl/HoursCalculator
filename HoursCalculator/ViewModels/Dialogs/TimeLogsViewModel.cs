@@ -24,6 +24,7 @@ namespace HoursCalculator.ViewModels.Dialogs
 
         public DelegateCommand<object> DeleteRow { get; set; }
         public DelegateCommand<object> AddComment { get; set; }
+        public DelegateCommand<object> LeftDoubleClick { get; set; }
 
         public TimeLogsViewModel(IDialogService dialogService)
         {
@@ -38,8 +39,29 @@ namespace HoursCalculator.ViewModels.Dialogs
 
             AddComment = new DelegateCommand<object>(AddComments);
 
+            LeftDoubleClick = new DelegateCommand<object>(DoubleClickGrid);
+
             string binPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
             location = Path.Combine(binPath, "TimeLogs.xml");
+        }
+
+        private TimeLog selectedItem;
+        public TimeLog SelectedItem
+        {
+            get { return selectedItem; }
+            set { SetProperty(ref selectedItem, value); }
+        }
+
+        private void DoubleClickGrid(object obj)
+        {
+            var parameters = new DialogParameters()
+            {
+                {"comment", selectedItem.Comments},
+                { "hour", selectedItem.TotalSpent },
+                { "date", selectedItem.Date},
+            };
+
+            dialogService.ShowDialog("OverView", parameters, r => { });
         }
 
         private void DeleteItem(object selectedItem)
