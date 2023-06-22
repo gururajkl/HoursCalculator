@@ -11,15 +11,20 @@
     <None Remove="Resources\Icons\exit.ico" />
     <None Remove="Resources\Icons\grip.ico" />
     <None Remove="Resources\Icons\message.ico" />
+    <None Remove="Resources\Icons\moon.ico" />
     <None Remove="Resources\Icons\pen.ico" />
     <None Remove="Resources\Icons\save.ico" />
     <None Remove="Resources\Icons\settingsIcon.ico" />
     <None Remove="Resources\Icons\spent.ico" />
+    <None Remove="Resources\Icons\sun.ico" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="iconForApp.ico" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Resources\Icons\moon.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Resources\Icons\pen.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
@@ -29,6 +34,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="EPPlus" Version="6.2.4" />
+    <PackageReference Include="Hardcodet.NotifyIcon.Wpf" Version="1.1.0" />
     <PackageReference Include="Prism.Unity" Version="8.1.97" />
   </ItemGroup>
   <ItemGroup>
@@ -48,6 +54,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Icons\spent.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\sun.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>

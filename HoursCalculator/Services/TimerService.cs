@@ -6,7 +6,7 @@ namespace HoursCalculator.Services
     public class TimerService : ITimerService
     {
         public event EventHandler Tick;
-        private DispatcherTimer dispatcherTimer;
+        private readonly DispatcherTimer dispatcherTimer;
 
         public TimerService()
         {

@@ -14,7 +14,7 @@ namespace HoursCalculator.ViewModels.Dialogs
     public class TimeLogsViewModel : BindableBase, IDialogAware
     {
         public string Title => "History of Time Logs";
-        string location = "";
+        readonly string location = "";
         private readonly string fileName = "TimeLogs.xml";
         public event Action<IDialogResult> RequestClose;
         public FileService<TimeLog> FileService;
