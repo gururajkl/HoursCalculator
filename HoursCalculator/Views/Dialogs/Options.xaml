@@ -12,7 +12,7 @@
             <Setter Property="ResizeMode"
                     Value="CanMinimize" />
             <Setter Property="Height"
-                    Value="255" />
+                    Value="170" />
             <Setter Property="Width"
                     Value="320" />
         </Style>
@@ -24,61 +24,6 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-
-        <GroupBox Grid.Row="1"
-                  Header="UI Theme (Under Development)"
-                  BorderThickness="1.5"
-                  Margin="0 10 0 0"
-                  BorderBrush="DimGray">
-
-            <StackPanel Orientation="Horizontal">
-                <ToggleButton Width="50"
-                              Height="30"
-                              Cursor="Hand"
-                              Margin="10 10 0 10">
-                    <ToggleButton.Template>
-                        <ControlTemplate TargetType="ToggleButton">
-                            <Grid>
-                                <Border Background="LightGray"
-                                        CornerRadius="7"
-                                        BorderThickness="1"
-                                        BorderBrush="Black"
-                                        x:Name="B1"
-                                        Height="15">
-                                </Border>
-                                <Canvas Width="{TemplateBinding Height}"
-                                        Name="B2"
-                                        HorizontalAlignment="Left">
-                                    <Border CornerRadius="10"
-                                            Width="{TemplateBinding Height}"
-                                            HorizontalAlignment="Left">
-                                        <Image x:Name="img"
-                                               Source="/Resources/Icons/sun.ico" />
-                                    </Border>
-                                </Canvas>
-                            </Grid>
-                            <ControlTemplate.Triggers>
-                                <Trigger Property="IsChecked"
-                                         Value="True">
-                                    <Setter TargetName="B1"
-                                            Property="Background"
-                                            Value="#28282B" />
-                                    <Setter TargetName="B1"
-                                            Property="BorderBrush"
-                                            Value="LightGray" />
-                                    <Setter TargetName="B2"
-                                            Property="HorizontalAlignment"
-                                            Value="Right" />
-                                    <Setter TargetName="img"
-                                            Property="Source"
-                                            Value="/Resources/Icons/moon.ico" />
-                                </Trigger>
-                            </ControlTemplate.Triggers>
-                        </ControlTemplate>
-                    </ToggleButton.Template>
-                </ToggleButton>
-            </StackPanel>
-        </GroupBox>
 
         <GroupBox Grid.Row="0"
                   Header="Manipulations"
