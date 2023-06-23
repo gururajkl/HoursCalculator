@@ -1,80 +1,81 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <OutputType>WinExe</OutputType>
-    <TargetFramework>net6.0-windows</TargetFramework>
-    <UseWPF>true</UseWPF>
-    <ApplicationIcon>iconForApp.ico</ApplicationIcon>
-    <AssemblyName>Hours Calculator</AssemblyName>
-  </PropertyGroup>
-  <ItemGroup>
-    <None Remove="Resources\Icons\delete.ico" />
-    <None Remove="Resources\Icons\exit.ico" />
-    <None Remove="Resources\Icons\grip.ico" />
-    <None Remove="Resources\Icons\message.ico" />
-    <None Remove="Resources\Icons\moon.ico" />
-    <None Remove="Resources\Icons\pen.ico" />
-    <None Remove="Resources\Icons\save.ico" />
-    <None Remove="Resources\Icons\settingsIcon.ico" />
-    <None Remove="Resources\Icons\sheet.ico" />
-    <None Remove="Resources\Icons\spent.ico" />
-    <None Remove="Resources\Icons\sun.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="iconForApp.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\Icons\moon.ico">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\Icons\pen.ico">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\Icons\save.ico">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="EPPlus" Version="6.2.4" />
-    <PackageReference Include="Hardcodet.NotifyIcon.Wpf" Version="1.1.0" />
-    <PackageReference Include="Prism.Unity" Version="8.1.97" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\Icons\delete.ico">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\Icons\exit.ico">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\Icons\grip.ico">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\Icons\message.ico">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\Icons\settingsIcon.ico">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\Icons\sheet.ico">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\Icons\spent.ico">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\Icons\sun.ico">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Update="Properties\Settings.Designer.cs">
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Settings.settings</DependentUpon>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Update="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
-  </ItemGroup>
+	<PropertyGroup>
+		<OutputType>WinExe</OutputType>
+		<TargetFramework>net6.0-windows</TargetFramework>
+		<UseWPF>true</UseWPF>
+		<ApplicationIcon>iconForApp.ico</ApplicationIcon>
+		<AssemblyName>Hours Calculator</AssemblyName>
+		<RuntimeIdentifier>win-x64</RuntimeIdentifier>
+	</PropertyGroup>
+	<ItemGroup>
+		<None Remove="Resources\Icons\delete.ico" />
+		<None Remove="Resources\Icons\exit.ico" />
+		<None Remove="Resources\Icons\grip.ico" />
+		<None Remove="Resources\Icons\message.ico" />
+		<None Remove="Resources\Icons\moon.ico" />
+		<None Remove="Resources\Icons\pen.ico" />
+		<None Remove="Resources\Icons\save.ico" />
+		<None Remove="Resources\Icons\settingsIcon.ico" />
+		<None Remove="Resources\Icons\sheet.ico" />
+		<None Remove="Resources\Icons\spent.ico" />
+		<None Remove="Resources\Icons\sun.ico" />
+	</ItemGroup>
+	<ItemGroup>
+		<Content Include="iconForApp.ico" />
+	</ItemGroup>
+	<ItemGroup>
+		<Resource Include="Resources\Icons\moon.ico">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Resource>
+		<Resource Include="Resources\Icons\pen.ico">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Resource>
+		<Resource Include="Resources\Icons\save.ico">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Resource>
+	</ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="EPPlus" Version="6.2.4" />
+		<PackageReference Include="Hardcodet.NotifyIcon.Wpf" Version="1.1.0" />
+		<PackageReference Include="Prism.Unity" Version="8.1.97" />
+	</ItemGroup>
+	<ItemGroup>
+		<Resource Include="Resources\Icons\delete.ico">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Resource>
+		<Resource Include="Resources\Icons\exit.ico">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Resource>
+		<Resource Include="Resources\Icons\grip.ico">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Resource>
+		<Resource Include="Resources\Icons\message.ico">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Resource>
+		<Resource Include="Resources\Icons\settingsIcon.ico">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Resource>
+		<Resource Include="Resources\Icons\sheet.ico">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Resource>
+		<Resource Include="Resources\Icons\spent.ico">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Resource>
+		<Resource Include="Resources\Icons\sun.ico">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Resource>
+	</ItemGroup>
+	<ItemGroup>
+		<Compile Update="Properties\Settings.Designer.cs">
+			<DesignTimeSharedInput>True</DesignTimeSharedInput>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>Settings.settings</DependentUpon>
+		</Compile>
+	</ItemGroup>
+	<ItemGroup>
+		<None Update="Properties\Settings.settings">
+			<Generator>SettingsSingleFileGenerator</Generator>
+			<LastGenOutput>Settings.Designer.cs</LastGenOutput>
+		</None>
+	</ItemGroup>
 </Project>
