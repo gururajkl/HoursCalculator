@@ -269,8 +269,8 @@ namespace HoursCalculator.ViewModels
         {
             if (fileService.GetData("TimeLogs.xml").Count > 0)
             {
-                if (fileService.GetData("TimeLogs.xml").Find(t => t.Date == DateTime.Now.ToString("d") || t.Date == "Today") != null)
-                    comments = (fileService.GetData("TimeLogs.xml").Find(t => t.Date == DateTime.Now.ToString("d") || t.Date == "Today").Comments);
+                if (fileService.GetData("TimeLogs.xml").Find(t => t.Date == DateTime.Now.ToString("d")) != null)
+                    comments = (fileService.GetData("TimeLogs.xml").Find(t => t.Date == DateTime.Now.ToString("d")).Comments);
             }
 
             DialogParameters timeLogsParamas = new()
@@ -313,8 +313,8 @@ namespace HoursCalculator.ViewModels
 
             if (fileService.GetData("TimeLogs.xml").Count > 0)
             {
-                if (fileService.GetData("TimeLogs.xml").Find(t => t.Date == DateTime.Now.ToString("d") || t.Date == "Today") != null)
-                    comments = (fileService.GetData("TimeLogs.xml").Find(t => t.Date == DateTime.Now.ToString("d") || t.Date == "Today").Comments);
+                if (fileService.GetData("TimeLogs.xml").Find(t => t.Date == DateTime.Now.ToString("d")) != null)
+                    comments = (fileService.GetData("TimeLogs.xml").Find(t => t.Date == DateTime.Now.ToString("d")).Comments);
             }
 
             DialogParameters timeLogsParamas = new()

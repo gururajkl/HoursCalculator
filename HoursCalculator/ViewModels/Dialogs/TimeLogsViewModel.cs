@@ -14,11 +14,10 @@ namespace HoursCalculator.ViewModels.Dialogs
     public class TimeLogsViewModel : BindableBase, IDialogAware
     {
         public string Title => "History of Time Logs";
-        readonly string location = "";
         private readonly string fileName = "TimeLogs.xml";
         public event Action<IDialogResult> RequestClose;
         public FileService<TimeLog> FileService;
-        private IDialogService dialogService;
+        private readonly IDialogService dialogService;
 
         public List<TimeLog> TimeLogsCollection { get; set; }
 
@@ -40,9 +39,6 @@ namespace HoursCalculator.ViewModels.Dialogs
             AddComment = new DelegateCommand<object>(AddComments);
 
             LeftDoubleClick = new DelegateCommand<object>(DoubleClickGrid);
-
-            string binPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-            location = Path.Combine(binPath, "TimeLogs.xml");
         }
 
         private TimeLog selectedItem;
@@ -123,12 +119,12 @@ namespace HoursCalculator.ViewModels.Dialogs
             var spent = parameters.GetValue<string>("spent");
             var comment = parameters.GetValue<string>("comment");
 
-            if (TimeLogsCollection.Where(r => r.Date == DateTime.Now.ToString("d") || r.Date == "Today").Any())
+            if (TimeLogsCollection.Where(r => r.Date == DateTime.Now.ToString("d")).Any())
             {
-                TimeLogsCollection.RemoveAll(r => r.Date == DateTime.Now.ToString("d") || r.Date == "Today");
+                TimeLogsCollection.RemoveAll(r => r.Date == DateTime.Now.ToString("d"));
                 TimeLogsCollection.Add(new TimeLog()
                 {
-                    Date = "Today",
+                    Date = DateTime.Now.ToString("d"),
                     From = from,
                     To = to,
                     TotalSpent = spent,
