@@ -1,6 +1,7 @@
 ﻿using HoursCalculator.Model;
 using HoursCalculator.Services;
 using Prism.Commands;
+using Prism.Events;
 using Prism.Mvvm;
 using Prism.Services.Dialogs;
 using System;
@@ -18,6 +19,7 @@ namespace HoursCalculator.ViewModels.Dialogs
         public event Action<IDialogResult> RequestClose;
         public FileService<TimeLog> FileService;
         private readonly IDialogService dialogService;
+        private readonly IEventAggregator eventAggregator;
 
         public List<TimeLog> TimeLogsCollection { get; set; }
 
@@ -25,10 +27,10 @@ namespace HoursCalculator.ViewModels.Dialogs
         public DelegateCommand<object> AddComment { get; set; }
         public DelegateCommand<object> LeftDoubleClick { get; set; }
 
-        public TimeLogsViewModel(IDialogService dialogService)
+        public TimeLogsViewModel(IDialogService dialogService, IEventAggregator eventAggregator)
         {
             TimeLogsCollection = new List<TimeLog>();
-            FileService = new FileService<TimeLog>();
+            FileService = new FileService<TimeLog>(eventAggregator);
             this.dialogService = dialogService;
 
             TimeLogsCollection = FileService.GetData(fileName);

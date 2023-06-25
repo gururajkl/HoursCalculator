@@ -42,7 +42,7 @@ namespace HoursCalculator.ViewModels
 
         public MainWindowViewModel(ITimerService timerService, IDialogService dialogService, IEventAggregator eventAggregator)
         {
-            timeLogsViewModel = new TimeLogsViewModel(dialogService);
+            timeLogsViewModel = new TimeLogsViewModel(dialogService, eventAggregator);
 
             SubmitCommand = new DelegateCommand(CalculateHours, CanExecuteSubmitCommand)
                 .ObservesProperty(() => HoursResult)
@@ -65,7 +65,8 @@ namespace HoursCalculator.ViewModels
             this.dialogService = dialogService;
             timerService.Tick += TimerService_Tick;
             this.eventAggregator = eventAggregator;
-            fileService = new FileService<TimeLog>();
+            fileService = new FileService<TimeLog>(eventAggregator);
+            eventAggregator.GetEvent<DataSetEvent>().Subscribe(() => DisplayLineCount());
             DisplayLineCount();
         }
 
@@ -310,7 +311,7 @@ namespace HoursCalculator.ViewModels
         public void ShowTimeLogs()
         {
             comments = "";
-
+            var count = fileService.GetData("TimeLogs.xml").Count;
             if (fileService.GetData("TimeLogs.xml").Count > 0)
             {
                 if (fileService.GetData("TimeLogs.xml").Find(t => t.Date == DateTime.Now.ToString("d")) != null)

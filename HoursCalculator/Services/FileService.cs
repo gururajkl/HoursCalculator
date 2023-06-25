@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using HoursCalculator.Events;
+using Prism.Events;
+using System.Collections.Generic;
 using System.IO;
 using System.Xml.Serialization;
 
@@ -7,6 +9,12 @@ namespace HoursCalculator.Services
     public class FileService<T>
     {
         private XmlSerializer serializer = new(typeof(List<T>));
+        private IEventAggregator eventAggregator;
+
+        public FileService(IEventAggregator eventAggregator)
+        {
+            this.eventAggregator = eventAggregator;
+        }
 
         public List<T> GetData(string fileName)
         {
@@ -25,6 +33,7 @@ namespace HoursCalculator.Services
                 var serializer = new XmlSerializer(typeof(List<T>));
                 serializer.Serialize(stream, data);
             }
+            eventAggregator.GetEvent<DataSetEvent>().Publish();
         }
     }
 }
