@@ -8,7 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Reflection;
+using System.Windows.Forms;
 
 namespace HoursCalculator.ViewModels.Dialogs
 {
@@ -26,6 +26,7 @@ namespace HoursCalculator.ViewModels.Dialogs
         public DelegateCommand<object> DeleteRow { get; set; }
         public DelegateCommand<object> AddComment { get; set; }
         public DelegateCommand<object> LeftDoubleClick { get; set; }
+        public DelegateCommand DownloadXML { get; set; }    
 
         public TimeLogsViewModel(IDialogService dialogService, IEventAggregator eventAggregator)
         {
@@ -41,6 +42,33 @@ namespace HoursCalculator.ViewModels.Dialogs
             AddComment = new DelegateCommand<object>(AddComments);
 
             LeftDoubleClick = new DelegateCommand<object>(DoubleClickGrid);
+            DownloadXML = new DelegateCommand(Download);
+        }
+
+        private void Download()
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.FileName = fileName;
+            saveFileDialog.Filter = "XML Files (*.xml)|*.xml";
+            bool result = saveFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK;
+            if (result)
+            {
+                string filePath = saveFileDialog.FileName;
+                string selectedDirectory = Path.GetDirectoryName(filePath);
+                string destinationFilePath = Path.Combine(selectedDirectory, fileName);
+
+                try
+                {
+                    var source = AppDomain.CurrentDomain.BaseDirectory;
+                    source = Path.Combine (source, fileName);   
+                    File.Copy(source, destinationFilePath, true);
+                    // File copied successfully to the selected location
+                }
+                catch (Exception ex)
+                {
+                    // Handle the exception, e.g., display an error message
+                }
+            }
         }
 
         private TimeLog selectedItem;
