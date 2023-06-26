@@ -302,7 +302,7 @@ namespace HoursCalculator.ViewModels
                     ShowDays = r.Parameters.GetValue<bool>("showDays") ? Visibility.Visible : Visibility.Collapsed;
                     Properties.Settings.Default.EnableSync = r.Parameters.GetValue<bool>("show");
                     Properties.Settings.Default.ShowDays = r.Parameters.GetValue<bool>("showDays");
-                    Properties.Settings.Default.AutoStartEnable = false;
+                    Properties.Settings.Default.AutoStartEnable = r.Parameters.GetValue<bool>("autoStart");
                     Properties.Settings.Default.Save();
                 }
             });

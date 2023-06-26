@@ -3,8 +3,10 @@ using HoursCalculator.Services;
 using HoursCalculator.ViewModels.Dialogs;
 using HoursCalculator.Views;
 using HoursCalculator.Views.Dialogs;
+using Microsoft.Win32;
 using Prism.Events;
 using Prism.Ioc;
+using System.Reflection;
 using System.Windows;
 
 namespace HoursCalculator
@@ -15,6 +17,7 @@ namespace HoursCalculator
 
         protected override Window CreateShell()
         {
+            RegisterAutoStart();
             CloseApp();
             return Container.Resolve<MainWindow>();
         }
@@ -28,31 +31,28 @@ namespace HoursCalculator
             containerRegistry.RegisterDialog<OverView, OverViewModel>();
         }
 
-        /* AutoStart Enable logic
-        protected override void OnStartup(StartupEventArgs e)
+        private void RegisterAutoStart()
         {
-            base.OnStartup(e);
-            var appName = "CheckTime";
-            string dllPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "DllFiles", "Hours Calculator.dll");
-            var runKey = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
+            string appName = Assembly.GetEntryAssembly().GetName().Name;
+            string runKey = "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run";
 
-
-            if (CheckTime.Properties.Settings.Default.AutoStartEnable)
+            using (RegistryKey registryKey = Registry.CurrentUser.OpenSubKey(runKey, true))
             {
-                if (runKey.GetValue(appName) == null)
+                if (registryKey != null)
                 {
-                    // Set the path to your application executable
-                    var appPath = System.Reflection.Assembly.GetExecutingAssembly().Location;
-                    runKey.SetValue(appName, appPath);
+                    if (HoursCalculator.Properties.Settings.Default.AutoStartEnable)
+                    {
+                        if (registryKey.GetValue(appName) == null)
+                            registryKey.SetValue(appName, System.Reflection.Assembly.GetExecutingAssembly().Location);
+                    }
+                    else
+                    {
+                        if (registryKey.GetValue(appName) != null)
+                            registryKey.DeleteValue(appName, false);
+                    }
                 }
             }
-            else
-            {
-                if (runKey.GetValue(appName) != null)
-                    runKey.DeleteValue(appName);
-            }
         }
-        */
 
         private void CloseApp()
         {

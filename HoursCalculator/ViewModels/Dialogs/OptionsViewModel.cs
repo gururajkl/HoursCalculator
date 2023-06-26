@@ -32,7 +32,7 @@ namespace HoursCalculator.ViewModels.Dialogs
             set { SetProperty(ref showDaysCount, value); }
         }
 
-        private bool autoStart = false;
+        private bool autoStart = Properties.Settings.Default.AutoStartEnable;
         public bool AutoStart
         {
             get { return autoStart; }
