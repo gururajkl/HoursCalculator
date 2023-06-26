@@ -26,7 +26,7 @@ namespace HoursCalculator.ViewModels.Dialogs
         public DelegateCommand<object> DeleteRow { get; set; }
         public DelegateCommand<object> AddComment { get; set; }
         public DelegateCommand<object> LeftDoubleClick { get; set; }
-        public DelegateCommand DownloadXML { get; set; }    
+        public DelegateCommand DownloadXML { get; set; }
 
         public TimeLogsViewModel(IDialogService dialogService, IEventAggregator eventAggregator)
         {
@@ -57,17 +57,9 @@ namespace HoursCalculator.ViewModels.Dialogs
                 string selectedDirectory = Path.GetDirectoryName(filePath);
                 string destinationFilePath = Path.Combine(selectedDirectory, fileName);
 
-                try
-                {
-                    var source = AppDomain.CurrentDomain.BaseDirectory;
-                    source = Path.Combine (source, fileName);   
-                    File.Copy(source, destinationFilePath, true);
-                    // File copied successfully to the selected location
-                }
-                catch (Exception ex)
-                {
-                    // Handle the exception, e.g., display an error message
-                }
+                var source = AppDomain.CurrentDomain.BaseDirectory;
+                source = Path.Combine(source, fileName);
+                File.Copy(source, destinationFilePath, true);
             }
         }
 
