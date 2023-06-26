@@ -52,7 +52,7 @@
                     </CheckBox.Resources>
                 </CheckBox>
 
-                <CheckBox Content="Autostart Application (Under Development)"
+                <CheckBox Content="Autostart Application"
                           IsChecked="{Binding AutoStart}"
                           Margin="0 5 0 0">
                     <CheckBox.Resources>

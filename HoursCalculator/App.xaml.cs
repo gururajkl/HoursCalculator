@@ -6,6 +6,7 @@ using HoursCalculator.Views.Dialogs;
 using Microsoft.Win32;
 using Prism.Events;
 using Prism.Ioc;
+using System.Diagnostics;
 using System.Reflection;
 using System.Windows;
 
@@ -19,6 +20,7 @@ namespace HoursCalculator
         {
             RegisterAutoStart();
             CloseApp();
+            CallRegisterByEvent();
             return Container.Resolve<MainWindow>();
         }
 
@@ -31,7 +33,7 @@ namespace HoursCalculator
             containerRegistry.RegisterDialog<OverView, OverViewModel>();
         }
 
-        private void RegisterAutoStart()
+        public void RegisterAutoStart()
         {
             string appName = Assembly.GetEntryAssembly().GetName().Name;
             string runKey = "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run";
@@ -43,7 +45,7 @@ namespace HoursCalculator
                     if (HoursCalculator.Properties.Settings.Default.AutoStartEnable)
                     {
                         if (registryKey.GetValue(appName) == null)
-                            registryKey.SetValue(appName, System.Reflection.Assembly.GetExecutingAssembly().Location);
+                            registryKey.SetValue(appName, Process.GetCurrentProcess().MainModule.FileName);
                     }
                     else
                     {
@@ -62,6 +64,17 @@ namespace HoursCalculator
                 Current.Dispatcher.Invoke(() =>
                 {
                     Current.Shutdown();
+                });
+            });
+        }
+
+        private void CallRegisterByEvent()
+        {
+            eventAggregator.GetEvent<RegisterAutoStart>().Subscribe(() =>
+            {
+                Current.Dispatcher.Invoke(() =>
+                {
+                    RegisterAutoStart();
                 });
             });
         }

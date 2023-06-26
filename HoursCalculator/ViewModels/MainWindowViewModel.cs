@@ -304,6 +304,7 @@ namespace HoursCalculator.ViewModels
                     Properties.Settings.Default.ShowDays = r.Parameters.GetValue<bool>("showDays");
                     Properties.Settings.Default.AutoStartEnable = r.Parameters.GetValue<bool>("autoStart");
                     Properties.Settings.Default.Save();
+                    eventAggregator.GetEvent<RegisterAutoStart>().Publish();
                 }
             });
         }

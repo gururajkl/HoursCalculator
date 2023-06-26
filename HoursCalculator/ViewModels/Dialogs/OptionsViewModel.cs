@@ -1,4 +1,5 @@
 ﻿using Prism.Commands;
+using Prism.Events;
 using Prism.Mvvm;
 using Prism.Services.Dialogs;
 using System;
@@ -10,10 +11,12 @@ namespace HoursCalculator.ViewModels.Dialogs
         public DelegateCommand<string> ButtonCommand { get; set; }
 
         public event Action<IDialogResult> RequestClose;
+        private readonly IEventAggregator eventAggregator;
 
-        public OptionsViewModel(MainWindowViewModel mainWindowViewModel)
+        public OptionsViewModel(MainWindowViewModel mainWindowViewModel, IEventAggregator eventAggregator)
         {
             ButtonCommand = new DelegateCommand<string>(CloseCommand);
+            this.eventAggregator = eventAggregator;
         }
 
         public string Title => "Options";
