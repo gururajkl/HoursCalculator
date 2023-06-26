@@ -207,7 +207,7 @@ namespace HoursCalculator.ViewModels
             return !string.IsNullOrEmpty(FromTime) && !string.IsNullOrEmpty(ToTime);
         }
 
-        private void CalculateHours()
+        public void CalculateHours()
         {
             DateTime fromTime24 = DateTime.Now;
             DateTime toTime24 = DateTime.Now;
