@@ -12,7 +12,7 @@
             <Setter Property="ResizeMode"
                     Value="CanMinimize" />
             <Setter Property="Height"
-                    Value="190" />
+                    Value="170" />
             <Setter Property="Width"
                     Value="320" />
         </Style>
@@ -54,6 +54,7 @@
 
                 <CheckBox Content="Autostart Application"
                           IsChecked="{Binding AutoStart}"
+                          Visibility="Collapsed"
                           Margin="0 5 0 0">
                     <CheckBox.Resources>
                         <Style TargetType="Border">

@@ -27,40 +27,23 @@ namespace HoursCalculator.ViewModels.Dialogs
         public DelegateCommand<object> AddComment { get; set; }
         public DelegateCommand<object> LeftDoubleClick { get; set; }
         public DelegateCommand DownloadXML { get; set; }
+        public DelegateCommand MergeDataCommand { get; set; }
 
         public TimeLogsViewModel(IDialogService dialogService, IEventAggregator eventAggregator)
         {
             TimeLogsCollection = new List<TimeLog>();
             FileService = new FileService<TimeLog>(eventAggregator);
             this.dialogService = dialogService;
+            this.eventAggregator = eventAggregator;
 
             TimeLogsCollection = FileService.GetData(fileName);
 
             DeleteRow = new DelegateCommand<object>(DeleteItem)
                 .ObservesProperty(() => TimeLogsCollection);
-
             AddComment = new DelegateCommand<object>(AddComments);
-
+            MergeDataCommand = new DelegateCommand(MergeData);
             LeftDoubleClick = new DelegateCommand<object>(DoubleClickGrid);
             DownloadXML = new DelegateCommand(Download);
-        }
-
-        private void Download()
-        {
-            SaveFileDialog saveFileDialog = new SaveFileDialog();
-            saveFileDialog.FileName = fileName;
-            saveFileDialog.Filter = "XML Files (*.xml)|*.xml";
-            bool result = saveFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK;
-            if (result)
-            {
-                string filePath = saveFileDialog.FileName;
-                string selectedDirectory = Path.GetDirectoryName(filePath);
-                string destinationFilePath = Path.Combine(selectedDirectory, fileName);
-
-                var source = AppDomain.CurrentDomain.BaseDirectory;
-                source = Path.Combine(source, fileName);
-                File.Copy(source, destinationFilePath, true);
-            }
         }
 
         private TimeLog selectedItem;
@@ -68,6 +51,70 @@ namespace HoursCalculator.ViewModels.Dialogs
         {
             get { return selectedItem; }
             set { SetProperty(ref selectedItem, value); }
+        }
+
+        private bool enableDelete;
+        public bool EnableDelete
+        {
+            get
+            {
+                return enableDelete = TimeLogsCollection.Count > 0 ? true : false;
+            }
+            set
+            {
+                value = TimeLogsCollection.Count > 0 ? true : false;
+                SetProperty(ref enableDelete, value);
+            }
+        }
+
+        private void MergeData()
+        {
+            OpenFileDialog dialog = new OpenFileDialog();
+            dialog.Filter = "XML Files (*.xml)|*.xml";
+            dialog.Title = "Select file";
+
+            if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                string newFileName = dialog.FileName;
+                var newValues = FileService.GetData(newFileName);
+                TimeLogsCollection.AddRange(newValues);
+                SortCollection();
+                RemoveDuplicates();
+                FileService.SetData(fileName, TimeLogsCollection);
+                RaisePropertyChanged(nameof(TimeLogsCollection));
+            }
+        }
+
+        private void SortCollection()
+        {
+            TimeLogsCollection.Sort((log1, log2) => log1.Date.CompareTo(log2.Date));
+        }
+
+        private void RemoveDuplicates()
+        {
+            TimeLogsCollection = TimeLogsCollection
+                .GroupBy(log => log.Date)
+                .Select(group => group.First())
+                .ToList();
+        }
+
+        private void Download()
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            string fileNameToSave = $"Timelogs till {DateTime.Now.ToString("d")}";
+            saveFileDialog.FileName = fileNameToSave;
+            saveFileDialog.Filter = "XML Files (*.xml)|*.xml";
+            bool result = saveFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK;
+            if (result)
+            {
+                string filePath = saveFileDialog.FileName;
+                string selectedDirectory = Path.GetDirectoryName(filePath);
+                string destinationFilePath = Path.Combine(selectedDirectory, saveFileDialog.FileName);
+
+                var source = AppDomain.CurrentDomain.BaseDirectory;
+                source = Path.Combine(source, fileName);
+                File.Copy(source, destinationFilePath, true);
+            }
         }
 
         private void DoubleClickGrid(object obj)
@@ -84,12 +131,16 @@ namespace HoursCalculator.ViewModels.Dialogs
 
         private void DeleteItem(object selectedItem)
         {
-            var item = selectedItem;
-            TimeLogsCollection.Remove(item as TimeLog);
-            TimeLogsCollection = new List<TimeLog>(TimeLogsCollection);
-            RaisePropertyChanged(nameof(TimeLogsCollection));
-            FileService.SetData(fileName, TimeLogsCollection);
-            EnableDelete = TimeLogsCollection.Count > 0 ? true : false;
+            // TODO implement prism
+            if (MessageBox.Show("Delete", "Do you want to delete item", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
+            {
+                var item = selectedItem;
+                TimeLogsCollection.Remove(item as TimeLog);
+                TimeLogsCollection = new List<TimeLog>(TimeLogsCollection);
+                RaisePropertyChanged(nameof(TimeLogsCollection));
+                FileService.SetData(fileName, TimeLogsCollection);
+                EnableDelete = TimeLogsCollection.Count > 0 ? true : false;
+            }
         }
 
         private void AddComments(object selectedItem)
@@ -112,34 +163,13 @@ namespace HoursCalculator.ViewModels.Dialogs
             });
         }
 
-        private bool enableDelete;
-        public bool EnableDelete
-        {
-            get
-            {
-                return enableDelete = TimeLogsCollection.Count > 0 ? true : false;
-            }
-            set
-            {
-                value = TimeLogsCollection.Count > 0 ? true : false;
-                SetProperty(ref enableDelete, value);
-            }
-        }
-
-        public bool CanCloseDialog()
-        {
-            return true;
-        }
-
-        public void OnDialogClosed()
-        { }
-
         public void OnDialogOpened(IDialogParameters parameters)
         {
             var from = parameters.GetValue<string>("from");
             var to = parameters.GetValue<string>("to");
             var spent = parameters.GetValue<string>("spent");
             var comment = parameters.GetValue<string>("comment");
+            TimeLogsCollection = FileService.GetData(fileName);
 
             if (TimeLogsCollection.Where(r => r.Date == DateTime.Now.ToString("d")).Any())
             {
@@ -167,5 +197,13 @@ namespace HoursCalculator.ViewModels.Dialogs
 
             FileService.SetData(fileName, TimeLogsCollection);
         }
+
+        public bool CanCloseDialog()
+        {
+            return true;
+        }
+
+        public void OnDialogClosed()
+        { }
     }
 }

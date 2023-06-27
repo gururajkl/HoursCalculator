@@ -18,7 +18,6 @@ namespace HoursCalculator
 
         protected override Window CreateShell()
         {
-            RegisterAutoStart();
             CloseApp();
             CallRegisterByEvent();
             return Container.Resolve<MainWindow>();
@@ -33,6 +32,7 @@ namespace HoursCalculator
             containerRegistry.RegisterDialog<OverView, OverViewModel>();
         }
 
+        /* AutoStart app logic
         public void RegisterAutoStart()
         {
             string appName = Assembly.GetEntryAssembly().GetName().Name;
@@ -55,6 +55,7 @@ namespace HoursCalculator
                 }
             }
         }
+        */
 
         private void CloseApp()
         {
@@ -74,7 +75,7 @@ namespace HoursCalculator
             {
                 Current.Dispatcher.Invoke(() =>
                 {
-                    RegisterAutoStart();
+                    // RegisterAutoStart();
                 });
             });
         }

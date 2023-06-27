@@ -31,8 +31,8 @@
                 Content="Download"
                 Command="{Binding DownloadXML}" />
             <Button Content="Merge"
+                    Command="{Binding MergeDataCommand}"
                     Width="150"
-                    IsEnabled="False"
                     Margin="5 0 0 0"
                     Padding="4"/>
         </StackPanel>

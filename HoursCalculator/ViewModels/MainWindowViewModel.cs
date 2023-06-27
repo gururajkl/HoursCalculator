@@ -352,7 +352,7 @@ namespace HoursCalculator.ViewModels
 
         private void ClearTextBoxes()
         {
-            FromTime = ""; ToTime = "";
+            FromTime = ": AM"; ToTime = ": PM";
         }
 
         public void CloseAppPublishCommand()
