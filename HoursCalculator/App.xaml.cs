@@ -3,11 +3,8 @@ using HoursCalculator.Services;
 using HoursCalculator.ViewModels.Dialogs;
 using HoursCalculator.Views;
 using HoursCalculator.Views.Dialogs;
-using Microsoft.Win32;
 using Prism.Events;
 using Prism.Ioc;
-using System.Diagnostics;
-using System.Reflection;
 using System.Windows;
 
 namespace HoursCalculator
@@ -30,9 +27,10 @@ namespace HoursCalculator
             containerRegistry.RegisterDialog<TimeLogs, TimeLogsViewModel>();
             containerRegistry.RegisterDialog<CommentsWindow, CommentsWindowViewModel>();
             containerRegistry.RegisterDialog<OverView, OverViewModel>();
+            containerRegistry.RegisterDialog<Confirmation, ConfirmationViewModel>();
         }
 
-        /* AutoStart app logic
+        /* AutoStart app logic (Legacy)
         public void RegisterAutoStart()
         {
             string appName = Assembly.GetEntryAssembly().GetName().Name;

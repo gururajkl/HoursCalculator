@@ -131,16 +131,20 @@ namespace HoursCalculator.ViewModels.Dialogs
 
         private void DeleteItem(object selectedItem)
         {
-            // TODO implement prism
-            if (MessageBox.Show("Delete", "Do you want to delete item", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
+            var dialogParameters = new DialogParameters();
+            dialogParameters.Add("message", "You want to delete?");
+            dialogService.ShowDialog("Confirmation", dialogParameters, r =>
             {
-                var item = selectedItem;
-                TimeLogsCollection.Remove(item as TimeLog);
-                TimeLogsCollection = new List<TimeLog>(TimeLogsCollection);
-                RaisePropertyChanged(nameof(TimeLogsCollection));
-                FileService.SetData(fileName, TimeLogsCollection);
-                EnableDelete = TimeLogsCollection.Count > 0 ? true : false;
-            }
+                if (ButtonResult.Yes == r.Result)
+                {
+                    var item = selectedItem;
+                    TimeLogsCollection.Remove(item as TimeLog);
+                    TimeLogsCollection = new List<TimeLog>(TimeLogsCollection);
+                    RaisePropertyChanged(nameof(TimeLogsCollection));
+                    FileService.SetData(fileName, TimeLogsCollection);
+                    EnableDelete = TimeLogsCollection.Count > 0 ? true : false;
+                }
+            });
         }
 
         private void AddComments(object selectedItem)
