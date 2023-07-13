@@ -1,4 +1,5 @@
-﻿using Prism.Mvvm;
+﻿using Prism.Commands;
+using Prism.Mvvm;
 using Prism.Services.Dialogs;
 using System;
 
@@ -13,6 +14,14 @@ namespace HoursCalculator.ViewModels.Dialogs
         {
             get { return comment; }
             set { SetProperty(ref comment, value); }
+        }
+
+        private DelegateCommand okCommand;
+        public DelegateCommand OkCommand => okCommand ?? (okCommand = new DelegateCommand(CloseDialog));
+
+        private void CloseDialog()
+        {
+            RequestClose?.Invoke(null);
         }
 
         private string text;

@@ -35,6 +35,13 @@ namespace HoursCalculator.ViewModels.Dialogs
             set { SetProperty(ref showDaysCount, value); }
         }
 
+        private bool enableDarkMode = Properties.Settings.Default.DarkMode;
+        public bool EnableDarkMode
+        {
+            get { return enableDarkMode; }
+            set { SetProperty(ref enableDarkMode, value); }
+        }
+
         private bool autoStart = Properties.Settings.Default.AutoStartEnable;
         public bool AutoStart
         {
@@ -54,7 +61,8 @@ namespace HoursCalculator.ViewModels.Dialogs
             {
                 { "show", EnableCheckBox },
                 { "autoStart", AutoStart },
-                { "showDays", ShowDaysCount }
+                { "showDays", ShowDaysCount },
+                { "darkMode", EnableDarkMode }
             }));
         }
 

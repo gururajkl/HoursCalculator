@@ -1,6 +1,7 @@
-<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:local="clr-namespace:HoursCalculator.CustomControls">
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:HoursCalculator.CustomControls">
 
 
     <Style TargetType="{x:Type local:AnalogClock}">
@@ -12,46 +13,51 @@
                             <RotateTransform Angle="90" />
                         </Grid.RenderTransform>
 
-                        <Line x:Name="PART_Second"
-                              Stroke="Red"
-                              Cursor="Hand"
-                              StrokeThickness="{TemplateBinding SecondHandThickness}"
-                              HorizontalAlignment="Center"
-                              VerticalAlignment="Center"
-                              X1="{TemplateBinding SecondX1}"
-                              X2="{TemplateBinding SecondX2}" />
+                        <Line
+                            x:Name="PART_Second"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Cursor="Hand"
+                            Stroke="Red"
+                            StrokeThickness="{TemplateBinding SecondHandThickness}"
+                            X1="{TemplateBinding SecondX1}"
+                            X2="{TemplateBinding SecondX2}" />
 
-                        <Line x:Name="PART_Hour"
-                              Stroke="Black"
-                              StrokeThickness="{TemplateBinding HourHandThickness}"
-                              Cursor="Hand"
-                              HorizontalAlignment="Center"
-                              VerticalAlignment="Center"
-                              X1="{TemplateBinding HourX1}"
-                              X2="{TemplateBinding HourX2}" />
+                        <Line
+                            x:Name="PART_Hour"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Cursor="Hand"
+                            Stroke="{DynamicResource Hour.Hand}"
+                            StrokeThickness="{TemplateBinding HourHandThickness}"
+                            X1="{TemplateBinding HourX1}"
+                            X2="{TemplateBinding HourX2}" />
 
-                        <Line x:Name="PART_Minute"
-                              Stroke="Black"
-                              Cursor="Hand"
-                              StrokeThickness="{TemplateBinding MinuteHandThickness}"
-                              HorizontalAlignment="Center"
-                              VerticalAlignment="Center"
-                              X1="{TemplateBinding MinuteX1}"
-                              X2="{TemplateBinding MinuteX2}" />
+                        <Line
+                            x:Name="PART_Minute"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Cursor="Hand"
+                            Stroke="{DynamicResource Minute.Hand}"
+                            StrokeThickness="{TemplateBinding MinuteHandThickness}"
+                            X1="{TemplateBinding MinuteX1}"
+                            X2="{TemplateBinding MinuteX2}" />
 
-                        <Ellipse x:Name="PART_Border"
-                                 Stroke="Black"
-                                 Cursor="Hand"
-                                 StrokeThickness="{TemplateBinding ClockThickness}"
-                                 Width="{TemplateBinding ClockWidth}"
-                                 Height="{TemplateBinding ClockHeight}" />
+                        <Ellipse
+                            x:Name="PART_Border"
+                            Width="{TemplateBinding ClockWidth}"
+                            Height="{TemplateBinding ClockHeight}"
+                            Cursor="Hand"
+                            Stroke="{DynamicResource Clock.Border}"
+                            StrokeThickness="{TemplateBinding ClockThickness}" />
 
-                        <Ellipse Stroke="Black"
-                                 Cursor="Hand"
-                                 StrokeThickness="0.4"
-                                 Fill="White"
-                                 Width="{TemplateBinding DotWidth}"
-                                 Height="{TemplateBinding DotHeight}" />
+                        <Ellipse
+                            Width="{TemplateBinding DotWidth}"
+                            Height="{TemplateBinding DotHeight}"
+                            Cursor="Hand"
+                            Fill="{DynamicResource Clock.Body.Fill}"
+                            Stroke="{DynamicResource Clock.Body.Stroke}"
+                            StrokeThickness="0.4" />
                     </Grid>
                 </ControlTemplate>
             </Setter.Value>

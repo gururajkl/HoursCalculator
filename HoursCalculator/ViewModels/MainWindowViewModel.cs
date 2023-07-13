@@ -2,6 +2,7 @@
 using HoursCalculator.Model;
 using HoursCalculator.Services;
 using HoursCalculator.ViewModels.Dialogs;
+using HoursCalculator.Views;
 using Prism.Commands;
 using Prism.Events;
 using Prism.Mvvm;
@@ -303,8 +304,9 @@ namespace HoursCalculator.ViewModels
                     Properties.Settings.Default.EnableSync = r.Parameters.GetValue<bool>("show");
                     Properties.Settings.Default.ShowDays = r.Parameters.GetValue<bool>("showDays");
                     Properties.Settings.Default.AutoStartEnable = r.Parameters.GetValue<bool>("autoStart");
+                    Properties.Settings.Default.DarkMode = r.Parameters.GetValue<bool>("darkMode");
                     Properties.Settings.Default.Save();
-                    eventAggregator.GetEvent<RegisterAutoStart>().Publish();
+                    new MainWindow().ChangeTheme();
                 }
             });
         }

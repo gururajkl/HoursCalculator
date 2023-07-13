@@ -16,7 +16,7 @@ namespace HoursCalculator
         protected override Window CreateShell()
         {
             CloseApp();
-            CallRegisterByEvent();
+            eventAggregator.GetEvent<RegisterAutoStart>().Publish();
             return Container.Resolve<MainWindow>();
         }
 
@@ -63,17 +63,6 @@ namespace HoursCalculator
                 Current.Dispatcher.Invoke(() =>
                 {
                     Current.Shutdown();
-                });
-            });
-        }
-
-        private void CallRegisterByEvent()
-        {
-            eventAggregator.GetEvent<RegisterAutoStart>().Subscribe(() =>
-            {
-                Current.Dispatcher.Invoke(() =>
-                {
-                    // RegisterAutoStart();
                 });
             });
         }

@@ -28,6 +28,7 @@ namespace HoursCalculator.ViewModels.Dialogs
         public DelegateCommand<object> LeftDoubleClick { get; set; }
         public DelegateCommand DownloadXML { get; set; }
         public DelegateCommand MergeDataCommand { get; set; }
+        public DelegateCommand CloseTimeLogs { get; set; }
 
         public TimeLogsViewModel(IDialogService dialogService, IEventAggregator eventAggregator)
         {
@@ -44,6 +45,7 @@ namespace HoursCalculator.ViewModels.Dialogs
             MergeDataCommand = new DelegateCommand(MergeData);
             LeftDoubleClick = new DelegateCommand<object>(DoubleClickGrid);
             DownloadXML = new DelegateCommand(Download);
+            CloseTimeLogs = new DelegateCommand(CloseTheDialog);
         }
 
         private TimeLog selectedItem;
@@ -85,6 +87,11 @@ namespace HoursCalculator.ViewModels.Dialogs
             }
         }
 
+        private void CloseTheDialog()
+        {
+            RequestClose.Invoke(null);
+        }
+
         private void SortCollection()
         {
             TimeLogsCollection.Sort((log1, log2) => log1.Date.CompareTo(log2.Date));
@@ -101,7 +108,7 @@ namespace HoursCalculator.ViewModels.Dialogs
         private void Download()
         {
             SaveFileDialog saveFileDialog = new SaveFileDialog();
-            string fileNameToSave = $"Timelogs till {DateTime.Now.ToString("d")}";
+            string fileNameToSave = $"Timelogs till {DateTime.Now.ToString("M")}";
             saveFileDialog.FileName = fileNameToSave;
             saveFileDialog.Filter = "XML Files (*.xml)|*.xml";
             bool result = saveFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK;
@@ -150,8 +157,10 @@ namespace HoursCalculator.ViewModels.Dialogs
         private void AddComments(object selectedItem)
         {
             var preEnteredComment = ((TimeLog)selectedItem).Comments;
-            var dialogParameterForCommentsWindow = new DialogParameters();
-            dialogParameterForCommentsWindow.Add("commentText", preEnteredComment.ToString());
+            var dialogParameterForCommentsWindow = new DialogParameters
+            {
+                { "commentText", preEnteredComment.ToString() }
+            };
 
             dialogService.ShowDialog("CommentsWindow", dialogParameterForCommentsWindow, r =>
             {
