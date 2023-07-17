@@ -58,6 +58,7 @@
                         TextWrapping="Wrap" />
                 </Border>
                 <Button
+                    Width="100"
                     Padding="4"
                     Command="{Binding OkCommand}"
                     Content="OK"
