@@ -237,7 +237,7 @@ namespace HoursCalculator.ViewModels
                     errorCount++;
                 }
 
-                if (errorCount <= 0)
+                if (errorCount <= 0 && !(Convert.ToDateTime(fromTime) > Convert.ToDateTime(ToTime)))
                 {
                     TimeSpan timeDiff = toTime24 - fromTime24;
                     double totalHours = timeDiff.TotalHours;
@@ -256,7 +256,7 @@ namespace HoursCalculator.ViewModels
                 else
                 {
                     HoursResult = "Invalid Inputs...";
-                    MinutesResult = "";
+                    MinutesResult = "Please provide proper inputs";
                     HoursAndMinutes = "";
                     errorCount = 0;
                 }

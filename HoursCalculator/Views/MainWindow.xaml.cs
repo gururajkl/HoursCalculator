@@ -33,11 +33,6 @@ namespace HoursCalculator.Views
             WindowState = WindowState.Minimized;
         }
 
-        private void Window_PreviewMouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
-        {
-            DragMove();
-        }
-
         public void ChangeTheme()
         {
             string theme = "/Resources/Light.xaml";
