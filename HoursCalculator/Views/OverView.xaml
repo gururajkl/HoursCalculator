@@ -40,7 +40,8 @@
                     HorizontalAlignment="Center"
                     FontSize="15"
                     Foreground="{DynamicResource ToTextColor}"
-                    Text="{Binding Text}" />
+                    Text="{Binding Text}"
+                    TextWrapping="Wrap" />
                 <Border
                     Margin="10,5,10,10"
                     BorderBrush="DarkGray"

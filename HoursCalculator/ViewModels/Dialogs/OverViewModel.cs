@@ -48,7 +48,7 @@ namespace HoursCalculator.ViewModels.Dialogs
         public void OnDialogOpened(IDialogParameters parameters)
         {
             Comment = parameters.GetValue<string>("comment");
-            Text = $"You spent {parameters.GetValue<string>("hour")} and spent for";
+            Text = $"You spent {parameters.GetValue<string>("hour")}, comments are";
         }
     }
 }
